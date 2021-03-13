@@ -5,3 +5,46 @@
  */
 
 // You can delete this file if you're not using it
+
+const path = require("path")
+const slash = require("slash")
+
+exports.createPage = ({ graphql, actions }) => {
+  const { createPage } = actions
+
+  return graphql(
+    `
+      {
+        allContentfulAaapo {
+          edges {
+            node {
+              slug
+              titulo
+              descricao {
+                descricao
+              }
+            }
+          }
+        }
+      }
+    `
+  )
+    .then(result => {
+      if (result.errors) {
+        console.log("Error with contentful data", result.errors)
+      }
+
+      const aaapoTemplate = path.resolve("./src/pages/index.js")
+
+      result.data.allContentfulAaapo.edges.forEach(edge => {
+        createPage({
+          path: `/index/${edge.node.slug}/`,
+          component: slash(aaapoTemplate),
+          context: {
+            slug: edge.node.slug,
+          },
+        })
+      })
+    })
+    .catch(error => console.log("Error with contentful data", error))
+}
