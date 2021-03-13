@@ -34,14 +34,15 @@ exports.createPage = ({ graphql, actions }) => {
         console.log("Error with contentful data", result.errors)
       }
 
-      const aaapoTemplate = path.resolve("./src/pages/index.js")
+      const aaapoTemplate = path.resolve("./src/pages/siteposts.js")
 
       result.data.allContentfulAaapo.edges.forEach(edge => {
         createPage({
-          path: `/index/${edge.node.slug}/`,
+          path: `/siteposts/${edge.node.slug}/`,
           component: slash(aaapoTemplate),
           context: {
             slug: edge.node.slug,
+            id: edge.node.id,
           },
         })
       })
