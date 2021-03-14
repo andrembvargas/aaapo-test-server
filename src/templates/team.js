@@ -1,5 +1,5 @@
 import React from "react"
-import { graphql } from "graphql"
+import { graphql } from "gatsby"
 
 const Team = ({ data }) => {
   return (
@@ -12,10 +12,10 @@ const Team = ({ data }) => {
       }}
     >
       <h1>{data.team.teamInfo.name}</h1>
-      <p>{data.team.teamInfo.estado}</p>
+      <p>{data.team.teamInfo.sport}</p>
       <div>
-        {data.team.treinadores.map(treinador => (
-          <p>{treinador}</p>
+        {data.team.coaches.map(coach => (
+          <p>{coach}</p>
         ))}
       </div>
     </div>
@@ -28,13 +28,14 @@ export const pageQuery = graphql`
   query($slug: String!) {
     team: contentfulTeam(slug: { eq: $slug }) {
       slug
-      futebol
+      teeball
+      coed
+      coaches
       numberOfPlayers
-      treinadores
       teamInfo {
         name
-        estado
-        liga
+        sport
+        league
       }
     }
   }
