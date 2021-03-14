@@ -15,11 +15,10 @@ exports.createPage = ({ graphql, actions }) => {
   return graphql(
     `
       {
-        allContentfulAaapo {
+        allContentfulTeam {
           edges {
             node {
               slug
-              }
             }
           }
         }
@@ -31,14 +30,14 @@ exports.createPage = ({ graphql, actions }) => {
         console.log("Error with contentful data", result.errors)
       }
 
-      const aaapoTemplate = path.resolve("./src/templates/aaapoteste.js")
+      const teamTemplate = path.resolve("./src/templates/team.js")
 
-      result.data.allContentfulAaapo.edges.forEach(aaapoteste => {
+      result.data.allContentfulTeam.edges.forEach(team => {
         createPage({
-          path: `/siteposts/${aaapoteste.node.slug}/`,
-          component: slash(aaapoTemplate),
+          path: `/teams/${team.node.slug}/`,
+          component: slash(teamTemplate),
           context: {
-            slug: aaapoteste.node.slug,
+            slug: team.node.slug,
           },
         })
       })
