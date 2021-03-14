@@ -19,9 +19,6 @@ exports.createPage = ({ graphql, actions }) => {
           edges {
             node {
               slug
-              titulo
-              descricao {
-                descricao
               }
             }
           }
@@ -34,15 +31,14 @@ exports.createPage = ({ graphql, actions }) => {
         console.log("Error with contentful data", result.errors)
       }
 
-      const aaapoTemplate = path.resolve("./src/pages/siteposts.js")
+      const aaapoTemplate = path.resolve("./src/templates/aaapoteste.js")
 
-      result.data.allContentfulAaapo.edges.forEach(edge => {
+      result.data.allContentfulAaapo.edges.forEach(aaapoteste => {
         createPage({
-          path: `/siteposts/${edge.node.slug}/`,
+          path: `/siteposts/${aaapoteste.node.slug}/`,
           component: slash(aaapoTemplate),
           context: {
-            slug: edge.node.slug,
-            id: edge.node.id,
+            slug: aaapoteste.node.slug,
           },
         })
       })
