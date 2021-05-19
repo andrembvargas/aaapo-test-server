@@ -5,6 +5,7 @@ import { graphql } from "gatsby"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
+import Team from "../components/team"
 
 const IndexPage = () => (
   <Layout>
@@ -20,6 +21,9 @@ const IndexPage = () => (
       alt="A Gatsby astronaut"
       style={{ marginBottom: `1.45rem` }}
     />
+    <section className="container">
+      <Team />
+    </section>
     <p>
       <Link to="/page-2/">View page 2</Link> <br />
       <Link to="/using-typescript/">Go to "Using TypeScript"</Link>
