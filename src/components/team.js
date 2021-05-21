@@ -1,5 +1,6 @@
 import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
+import { Image } from "../components/image.js"
 
 const Team = () => {
   const data = useStaticQuery(graphql`
@@ -8,14 +9,15 @@ const Team = () => {
         edges {
           node {
             slug
-            teeball
-            coed
             coaches
             numberOfPlayers
             teamInfo {
               name
               sport
               league
+            }
+            soccer {
+              gatsbyImageData
             }
           }
         }
@@ -29,15 +31,14 @@ const Team = () => {
         return (
           <div key={node.id} className="time">
             <h1>{node.slug}</h1>
-            <p>{node.teamInfo.sport}</p>
-            <p>{node.coaches}</p>
+            <p>É um time de {node.teamInfo.sport}!</p>
+            <p>Nosso técnico é o {node.coaches}.</p>
           </div>
         )
       })}
     </div>
   )
 }
-
 /*
 <div className="timecos">
   <ul className="times">
