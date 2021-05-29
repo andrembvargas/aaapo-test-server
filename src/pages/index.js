@@ -1,44 +1,45 @@
 import * as React from "react"
-import { Link } from "gatsby"
 import { graphql } from "gatsby"
+import { GatsbyImage } from "gatsby-plugin-image"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import Team from "../components/team"
-import Img from "gatsby-image"
 
-const IndexPage = ({ data }) => (
-  <Layout>
-    <SEO title="Home" />
-    <section className="container">
-      <Team />
-    </section>
-    <section className="hero">
-      <Img
-        fluid={data.torcidaFlu.childImageSharp.fluid}
-        className="hero-image"
-      />
-    </section>
-    <p>
-      <Link to="/using-typescript/">Go to "Using TypeScript"</Link>
-    </p>
-  </Layout>
-)
+const IndexPage = ({ data }) => {
+  return (
+    <Layout>
+      <SEO title="Home" />
+      <div className="timecos">
+        <div className="time">
+          <p>
+            O time é o {data.contentfulTeam.teste}, seu técnico é o{" "}
+            {data.contentfulTeam.coaches}, com{" "}
+            {data.contentfulTeam.numberOfPlayers} jogadores. Joga na{" "}
+            {data.contentfulTeam.teamInfo.league}.
+          </p>
+          <GatsbyImage
+            alt="imagem"
+            image={data.contentfulTeam.soccer.gatsbyImageData}
+          />
+        </div>
+      </div>
+    </Layout>
+  )
+}
 
-export const fluidImage = graphql`
-  fragment fluidImage on File {
-    childImageSharp {
-      fluid(maxWidth: 1600) {
-        ...GatsbyImageSharpFluid
+export const data = graphql`
+  query MyQuery {
+    contentfulTeam {
+      teste
+      numberOfPlayers
+      teamInfo {
+        sport
+        league
       }
-    }
-  }
-`
-
-export const pageQuery = graphql`
-  query {
-    torcidaFlu: file(relativePath: { eq: "torcidaflu.jpg" }) {
-      ...fluidImage
+      coaches
+      soccer {
+        gatsbyImageData(placeholder: TRACED_SVG)
+      }
     }
   }
 `
